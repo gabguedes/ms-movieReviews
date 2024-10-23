@@ -2,6 +2,7 @@ package com.github.gabguedes.ms_movieReviews.DTO;
 
 import com.github.gabguedes.ms_movieReviews.model.Filme;
 import com.github.gabguedes.ms_movieReviews.model.Genero;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class GeneroDTO {
 
     private Long id;
 
+    @NotBlank(message = "Nome é obrigatório.")
     private String nome;
 
     private List<FilmeDTO> filmes = new ArrayList<>();

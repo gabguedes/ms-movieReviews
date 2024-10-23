@@ -1,7 +1,7 @@
 package com.github.gabguedes.ms_movieReviews.controller;
 
-import com.github.gabguedes.ms_movieReviews.DTO.FilmeDTO;
-import com.github.gabguedes.ms_movieReviews.service.FilmeService;
+import com.github.gabguedes.ms_movieReviews.DTO.UserDTO;
+import com.github.gabguedes.ms_movieReviews.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +13,25 @@ import java.net.URI;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/filmes")
-public class FilmeController {
-
+@RequestMapping(value = "/users")
+public class UserController {
     @Autowired
-    FilmeService service;
+    UserService service;
 
     @GetMapping
-    public ResponseEntity<List<FilmeDTO>> findAll(){
-        List<FilmeDTO> dto = service.findAll();
+    public ResponseEntity<List<UserDTO>> findAll(){
+        List<UserDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FilmeDTO> findById(@PathVariable Long id){
-        FilmeDTO dto = service.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id){
+        UserDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<FilmeDTO> insert(@RequestBody @Valid FilmeDTO dto){
+    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO dto){
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,14 +43,14 @@ public class FilmeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FilmeDTO> update(@PathVariable Long id,
-                                           @RequestBody @Valid FilmeDTO dto){
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,
+                                           @RequestBody @Valid UserDTO dto){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FilmeDTO> delete(@PathVariable Long id){
+    public ResponseEntity<UserDTO> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -3,6 +3,7 @@ package com.github.gabguedes.ms_movieReviews.DTO;
 import com.github.gabguedes.ms_movieReviews.model.Filme;
 import com.github.gabguedes.ms_movieReviews.model.Review;
 import com.github.gabguedes.ms_movieReviews.model.User;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +17,17 @@ public class ReviewDTO {
 
     private Long id;
 
+    @NotBlank(message = "Texto é obrigatório.")
     private String texto;
 
-    private UserDTO user;
+    private Long userId;
 
-    private FilmeDTOSemReviews filme;
+    private Long filmeId;
 
     public ReviewDTO(Review entity) {
         this.id = entity.getId();
         this.texto = entity.getTexto();
-        this.user = new UserDTO(entity.getUser());
-        this.filme = new FilmeDTOSemReviews(entity.getFilme());
+        this.userId = entity.getUser().getId();
+        this.filmeId = entity.getFilme().getId();
     }
 }

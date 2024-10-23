@@ -1,7 +1,7 @@
 package com.github.gabguedes.ms_movieReviews.controller.handlers;
 
-import com.github.gabguedes.ms_movieReviews.DTO.CustomErrorDTO;
-import com.github.gabguedes.ms_movieReviews.DTO.ValidationErrorDTO;
+import com.github.gabguedes.ms_movieReviews.DTO.errorDTO.CustomErrorDTO;
+import com.github.gabguedes.ms_movieReviews.DTO.errorDTO.ValidationErrorDTO;
 import com.github.gabguedes.ms_movieReviews.service.exception.DatabaseException;
 import com.github.gabguedes.ms_movieReviews.service.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;

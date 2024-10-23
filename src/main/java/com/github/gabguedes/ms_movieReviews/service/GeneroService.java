@@ -1,8 +1,7 @@
 package com.github.gabguedes.ms_movieReviews.service;
 
-import com.github.gabguedes.ms_movieReviews.DTO.FilmeDTO;
-import com.github.gabguedes.ms_movieReviews.model.Filme;
-import com.github.gabguedes.ms_movieReviews.repository.FilmeRepository;
+import com.github.gabguedes.ms_movieReviews.DTO.GeneroDTO;
+import com.github.gabguedes.ms_movieReviews.model.Genero;
 import com.github.gabguedes.ms_movieReviews.repository.GeneroRepository;
 import com.github.gabguedes.ms_movieReviews.service.exception.DatabaseException;
 import com.github.gabguedes.ms_movieReviews.service.exception.ResourceNotFoundException;
@@ -16,41 +15,39 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FilmeService {
-
+public class GeneroService {
+    
     @Autowired
-    private FilmeRepository repository;
-
-    @Autowired private GeneroRepository generoRepository;
+    private GeneroRepository repository;
 
     @Transactional(readOnly = true)
-    public List<FilmeDTO> findAll(){
-        return repository.findAll().stream().map(FilmeDTO::new).collect(Collectors.toList());
+    public List<GeneroDTO> findAll(){
+        return repository.findAll().stream().map(GeneroDTO::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public FilmeDTO findById(Long id){
-        Filme filme = repository.findById(id).orElseThrow(
+    public GeneroDTO findById(Long id){
+        Genero genero = repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Recurso não encontrado: " + id)
         );
-        return new FilmeDTO(filme);
+        return new GeneroDTO(genero);
     }
 
     @Transactional
-    public FilmeDTO insert(FilmeDTO dto){
-        Filme filme = new Filme();
-        copyDtoToEntity(dto, filme);
-        filme = repository.save(filme);
-        return new FilmeDTO(filme);
+    public GeneroDTO insert(GeneroDTO dto){
+        Genero genero = new Genero();
+        copyDtoToEntity(dto, genero);
+        genero = repository.save(genero);
+        return new GeneroDTO(genero);
     }
 
     @Transactional
-    public FilmeDTO update(Long id, FilmeDTO dto){
+    public GeneroDTO update(Long id, GeneroDTO dto){
         try {
-            Filme filme = repository.getReferenceById(id);
-            copyDtoToEntity(dto, filme);
-            filme = repository.save(filme);
-            return new FilmeDTO(filme);
+            Genero genero = repository.getReferenceById(id);
+            copyDtoToEntity(dto, genero);
+            genero = repository.save(genero);
+            return new GeneroDTO(genero);
         }catch (EntityNotFoundException e){
             throw new ResourceNotFoundException("Recurso não encontrado: " + id);
         }
@@ -68,13 +65,7 @@ public class FilmeService {
         }
     }
 
-    private void copyDtoToEntity(FilmeDTO dto, Filme filme) {
-        filme.setTitulo(dto.getTitulo());
-        filme.setAno(dto.getAno());
-        filme.setGenero(generoRepository.findById(dto.getGeneroId()).orElseThrow(
-                () -> new ResourceNotFoundException("Recurso não encontrado: " + dto.getGeneroId())
-        ));
+    private void copyDtoToEntity(GeneroDTO dto, Genero genero) {
+        genero.setNome(dto.getNome());
     }
-
-
 }

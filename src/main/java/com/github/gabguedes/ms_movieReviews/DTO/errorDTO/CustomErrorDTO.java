@@ -1,4 +1,4 @@
-package com.github.gabguedes.ms_movieReviews.DTO;
+package com.github.gabguedes.ms_movieReviews.DTO.errorDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

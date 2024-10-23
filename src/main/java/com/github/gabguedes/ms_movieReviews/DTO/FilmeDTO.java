@@ -3,6 +3,9 @@ package com.github.gabguedes.ms_movieReviews.DTO;
 import com.github.gabguedes.ms_movieReviews.model.Filme;
 import com.github.gabguedes.ms_movieReviews.model.Genero;
 import com.github.gabguedes.ms_movieReviews.model.Review;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,20 +22,23 @@ public class FilmeDTO {
 
     private Long id;
 
+    @NotBlank(message = "Titulo é obrigatório.")
     private String titulo;
 
+    @NotNull(message = "Ano é obrigatório.")
+    @Positive
     private Integer ano;
 
-    private List<ReviewDTOSemFilme> reviews = new ArrayList<>();
+    private List<ReviewDTO> reviews = new ArrayList<>();
 
-    private GeneroDTO genero;
+    private Long generoId;
 
     public FilmeDTO(Filme entity) {
         this.id = entity.getId();
         this.titulo = entity.getTitulo();
         this.ano = entity.getAno();
-        this.genero = new GeneroDTO(entity.getGenero());
+        this.generoId = entity.getGenero().getId();
 //        this.reviews = entity.getReviews().stream().map(ReviewDTO::new).toList();
-        entity.getReviews().forEach(review -> reviews.add(new ReviewDTOSemFilme(review)));
+        entity.getReviews().forEach(review -> reviews.add(new ReviewDTO(review)));
     }
 }
